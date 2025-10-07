@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Project.Runtime.Scripts.PlayerDataSO
   Material: {fileID: 2100000, guid: 92da80faf5ccd0c4c9e21290975ae77b, type: 2}
   Icon: {fileID: -2027504960, guid: 6582f34ddd5f686408c019550cd94c9d, type: 3}
+  MoveUp: 105
+  MoveDown: 106
+  MoveLeft: 107
+  MoveRight: 108

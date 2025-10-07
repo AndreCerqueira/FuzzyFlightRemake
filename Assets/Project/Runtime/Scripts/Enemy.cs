@@ -41,7 +41,7 @@ namespace Project.Runtime.Scripts
         {
             MovePattern();
 
-            if (transform.position.z < 0f && !_isDestroying)
+            if (transform.position.z < -1f && !_isDestroying)
             {
                 _isDestroying = true;
                 

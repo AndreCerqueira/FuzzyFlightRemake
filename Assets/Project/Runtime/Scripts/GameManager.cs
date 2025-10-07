@@ -18,7 +18,6 @@ namespace Project.Runtime.Scripts
         
         [Header("Player Data")]
         [SerializeField] private PlayerDataSO[] _playerDataSOs;
-        private List<int> _availableDataIndices;
         
         [Header("Spawn Area (X Axis)")]
         [SerializeField] private float _minX;
@@ -28,10 +27,6 @@ namespace Project.Runtime.Scripts
         
         private void Start()
         {
-            _availableDataIndices = new List<int>();
-            for (var i = 0; i < _playerDataSOs.Length; i++)
-                _availableDataIndices.Add(i);
-            
             SpawnPlayers();
         }
         
@@ -39,43 +34,25 @@ namespace Project.Runtime.Scripts
         {
             if (_playerQuantity <= 0) return;
 
-            if (_playerQuantity == 1)
-            {
-                SpawnShip(0f, _spawnY);
-                return;
-            }
-
             var totalWidth = _maxX - _minX;
-            var spacing = totalWidth / (_playerQuantity - 1);
+            var spacing = _playerQuantity > 1 ? totalWidth / (_playerQuantity - 1) : 0f;
             var offset = (_maxX + _minX) / 2f;
 
             for (var i = 0; i < _playerQuantity; i++)
             {
                 var x = _minX + spacing * i - offset;
-                SpawnShip(x, _spawnY);
+                var data = _playerDataSOs[i];
+                SpawnShip(x, _spawnY, data);
             }
         }
 
-        private void SpawnShip(float x, float y)
+        private void SpawnShip(float x, float y, PlayerDataSO data)
         {
-            if (_availableDataIndices.Count == 0) return;
-
-            var data = GetPlayerData();
-            
             var hud = Instantiate(_playerHudPrefab, _hudContainer);
+            hud.Setup(data);
+
             var ship = Instantiate(_playerShipPrefab, new Vector3(x, y, 0f), Quaternion.identity, _shipContainer);
-            
-            hud.Setup(data.Icon);
             ship.Setup(hud, data);
-        }
-
-        private PlayerDataSO GetPlayerData()
-        {
-            var randomIndex = Random.Range(0, _availableDataIndices.Count);
-            var dataIndex = _availableDataIndices[randomIndex];
-            _availableDataIndices.RemoveAt(randomIndex);
-
-            return _playerDataSOs[dataIndex];
         }
     }
 }
