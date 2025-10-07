@@ -1,3 +1,5 @@
+using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Project.Runtime.Scripts
@@ -15,9 +17,11 @@ namespace Project.Runtime.Scripts
         public EnemyType Type = EnemyType.Static;
         public float MoveDistance = 1.8f;
         public float MoveSpeed = 2f;
+        public float DestroyScaleTime = 0.2f;
 
         private Vector3 _startLocalPos;
         private float _phaseOffset;
+        private bool _isDestroying;
 
         [Header("References")]
         [SerializeField] private Transform _slider;
@@ -26,7 +30,7 @@ namespace Project.Runtime.Scripts
         {
             _startLocalPos = transform.localPosition;
             _phaseOffset = Random.Range(0f, Mathf.PI * 2f);
-            
+
             if (Type != EnemyType.Static)
                 _slider.gameObject.SetActive(true);
             if (Type == EnemyType.Vertical)
@@ -36,12 +40,20 @@ namespace Project.Runtime.Scripts
         private void Update()
         {
             MovePattern();
+
+            if (transform.position.z < 0f && !_isDestroying)
+            {
+                _isDestroying = true;
+                
+                transform.parent.DOScale(Vector3.zero, DestroyScaleTime)
+                    .SetEase(Ease.InBack)
+                    .OnComplete(() => Destroy(gameObject));
+            }
         }
 
         private void MovePattern()
         {
             var offset = Mathf.Sin(Time.time * MoveSpeed + _phaseOffset) * MoveDistance;
-
             var pos = _startLocalPos;
 
             switch (Type)
@@ -49,12 +61,8 @@ namespace Project.Runtime.Scripts
                 case EnemyType.Vertical:
                     pos.y = _startLocalPos.y + offset;
                     break;
-
                 case EnemyType.Horizontal:
                     pos.x = _startLocalPos.x + offset;
-                    break;
-
-                case EnemyType.Static:
                     break;
             }
 
@@ -63,14 +71,15 @@ namespace Project.Runtime.Scripts
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("Enemy hit something!");
-            
             if (!other.CompareTag("Ship")) return;
+
             var ship = other.GetComponentInParent<Ship>();
             if (ship != null)
             {
                 ship.TakeDamage();
             }
+            
+            Destroy(transform.parent.gameObject);
         }
     }
 }

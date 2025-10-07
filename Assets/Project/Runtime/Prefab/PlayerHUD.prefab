@@ -214,6 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fede33908257ffe47970390d811843dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Project.Runtime.Scripts.PlayerHUD
+  _playerHudImage: {fileID: 2154905877117025032}
   _lifeViews:
   - {fileID: 6025534392222457629}
   - {fileID: 2180306523712686616}

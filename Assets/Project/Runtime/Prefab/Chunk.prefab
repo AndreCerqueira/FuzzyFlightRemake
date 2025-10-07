@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13a87bf94aeac74dbaff4936aed757f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Chunk
-  Speed: 5
+  Speed: 15
   DestroyZ: -100
 --- !u!1 &7488472805028935334
 GameObject:
