@@ -15,6 +15,14 @@ MonoBehaviour:
   Material: {fileID: 2100000, guid: f27c95ad0215b3a4db0290559e708c74, type: 2}
   Icon: {fileID: -1994478078, guid: 6582f34ddd5f686408c019550cd94c9d, type: 3}
   MoveUp: 273
-  MoveDown: 274
   MoveLeft: 276
+  MoveDown: 274
   MoveRight: 275
+  MoveUpIcon: {fileID: 21300000, guid: 08b02fa876a848549bbae9142df73447, type: 3}
+  MoveUpIconPressed: {fileID: 21300000, guid: 6825f20b5f205504b809aadb1f52522e, type: 3}
+  MoveLeftIcon: {fileID: 21300000, guid: 135a716b16edeab458985aa94ba3d0eb, type: 3}
+  MoveLeftIconPressed: {fileID: 21300000, guid: 2a9188d91563a444e87fd02029a1054b, type: 3}
+  MoveDownIcon: {fileID: 21300000, guid: a971b1f7a1d921b4bb2de6a2566c6e1f, type: 3}
+  MoveDownIconPressed: {fileID: 21300000, guid: 9f1ff8078f8983443937220db0b2d167, type: 3}
+  MoveRightIcon: {fileID: 21300000, guid: a92b7ebdabfd9774d8a6e7b8d6ccef5a, type: 3}
+  MoveRightIconPressed: {fileID: 21300000, guid: b9d773c49457d7441adcbbe5202d6715, type: 3}

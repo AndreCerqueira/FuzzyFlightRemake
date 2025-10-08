@@ -61,6 +61,9 @@ namespace Project.Runtime.Scripts
         private void FixedUpdate()
         {
             if (_playerData == null) return;
+            
+            _rb.linearVelocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
 
             var newPos = _rb.position + _input * MoveSpeed * Time.fixedDeltaTime;
             _rb.MovePosition(newPos);
