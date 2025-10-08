@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Project.Runtime.Scripts
@@ -23,7 +24,7 @@ namespace Project.Runtime.Scripts
         
         private PlayerDataSO _playerData;
 
-        private int _lives = 3;
+        public int Lives { get; private set; } = 3;
         
         private bool _upPressedOnce = false;
         private bool _leftPressedOnce = false;
@@ -85,12 +86,12 @@ namespace Project.Runtime.Scripts
         
         public void TakeDamage()
         {
-            if (_lives <= 0) return;
+            if (Lives <= 0) return;
             
-            _lives--;
-            _lifeViews[_lives].SetOff();
+            Lives--;
+            _lifeViews[Lives].SetOff();
 
-            if (_lives == 0)
+            if (Lives == 0)
             {
                 Debug.Log("Player is dead!");
                 OnPlayerDead?.Invoke();

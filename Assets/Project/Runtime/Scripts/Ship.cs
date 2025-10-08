@@ -27,8 +27,46 @@ namespace Project.Runtime.Scripts
         
         public void TakeDamage()
         {
-            Debug.Log($"Player took 1 damage!");
+            if (_shipMovement == null) return;
+            if (DOTween.IsTweening(transform)) return;
+            
             _playerHUD.TakeDamage();
+            
+            if (_playerHUD.Lives > 0)
+                PlayHitAnimation();
+        }
+        
+        private void PlayHitAnimation()
+        {
+            if (_shipMovement == null) return;
+
+            _shipMovement.enabled = false;
+
+            var startRot = transform.rotation;
+            var startPos = transform.position;
+            var hitBackPos = startPos - transform.forward * 0.7f;
+            var hitSeq = DOTween.Sequence();
+
+            hitSeq.Append(
+                transform.DOLocalRotate(new Vector3(0f, 360f, 0f), 0.6f, RotateMode.FastBeyond360)
+                    .SetEase(Ease.OutCubic)
+            );
+
+            hitSeq.Join(
+                transform.DOMove(hitBackPos, 0.3f)
+                    .SetEase(Ease.OutCubic)
+            );
+
+            hitSeq.Append(
+                transform.DOMove(startPos, 0.3f)
+                    .SetEase(Ease.InOutCubic)
+            );
+
+            hitSeq.OnComplete(() =>
+            {
+                transform.rotation = startRot;
+                _shipMovement.enabled = true;
+            });
         }
         
         private void HandleDeath()
