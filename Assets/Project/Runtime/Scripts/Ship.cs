@@ -23,6 +23,7 @@ namespace Project.Runtime.Scripts
                 _renderer.material = new Material(data.Material);
             
             _playerHUD.OnPlayerDead += HandleDeath;
+            _playerHUD.OnPlayerDead += () => GameManager.Instance.NotifyPlayerDeath();
         }
         
         public void TakeDamage()

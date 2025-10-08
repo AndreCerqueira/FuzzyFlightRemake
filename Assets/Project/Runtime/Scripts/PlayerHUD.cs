@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -11,7 +12,13 @@ namespace Project.Runtime.Scripts
         
         [SerializeField] private Image _playerHudImage;
         [SerializeField] private PlayerLifeView[] _lifeViews;
+        
+        [Header("Containers")]
+        [SerializeField] private GameObject _livesContainer;
+        [SerializeField] private GameObject _positionLabelContainer;
+        [SerializeField] private TextMeshProUGUI _positionLabelText;
 
+        [Header("Key Icons")]
         [SerializeField] private Image _upKeyIcon;
         [SerializeField] private Image _leftKeyIcon;
         [SerializeField] private Image _downKeyIcon;
@@ -95,6 +102,10 @@ namespace Project.Runtime.Scripts
             {
                 Debug.Log("Player is dead!");
                 OnPlayerDead?.Invoke();
+                
+                _livesContainer.SetActive(false);
+                _positionLabelContainer.SetActive(true);
+                _positionLabelText.text = GameManager.Instance.GetCurrentPlayerPosition();
             }
         }
         

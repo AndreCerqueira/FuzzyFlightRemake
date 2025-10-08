@@ -1,5 +1,6 @@
 using System.Linq;
 using DG.Tweening;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 namespace Project.Runtime.Scripts
@@ -25,6 +26,7 @@ namespace Project.Runtime.Scripts
 
         [Header("References")]
         [SerializeField] private Transform _slider;
+        [SerializeField] private MMF_Player _hitSfxFeedback;
 
         private void Start()
         {
@@ -78,6 +80,8 @@ namespace Project.Runtime.Scripts
             {
                 ship.TakeDamage();
             }
+            
+            _hitSfxFeedback?.PlayFeedbacks();
             
             Destroy(transform.parent.gameObject);
         }

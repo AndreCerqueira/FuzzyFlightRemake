@@ -1,12 +1,14 @@
 using System.Collections.Generic;
+using Project.Runtime.Scripts.General;
 using UnityEngine;
 
 namespace Project.Runtime.Scripts
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : Singleton<GameManager>
     {
         [Header("Game Settings")]
         [SerializeField] private int _playerQuantity = 1;
+        public int PlayerQuantityAlive { get; private set; }
         
         [Header("Containers")]
         [SerializeField] private Transform _shipContainer;
@@ -28,6 +30,7 @@ namespace Project.Runtime.Scripts
         private void Start()
         {
             SpawnPlayers();
+            PlayerQuantityAlive = _playerQuantity;
         }
         
         private void SpawnPlayers()
@@ -53,6 +56,23 @@ namespace Project.Runtime.Scripts
 
             var ship = Instantiate(_playerShipPrefab, new Vector3(x, y, 0f), Quaternion.identity, _shipContainer);
             ship.Setup(hud, data);
+        }
+        
+        public void NotifyPlayerDeath()
+        {
+            if (PlayerQuantityAlive <= 0) return;
+            PlayerQuantityAlive--;
+        }
+
+        public string GetCurrentPlayerPosition()
+        {
+            return PlayerQuantityAlive switch
+            {
+                3 => "4th",
+                2 => "3rd",
+                1 => "2nd",
+                _ => "1st" 
+            };
         }
     }
 }
