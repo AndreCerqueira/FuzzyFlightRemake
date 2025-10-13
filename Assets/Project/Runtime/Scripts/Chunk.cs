@@ -6,7 +6,7 @@ namespace Project.Runtime.Scripts
     {
         public float Speed = 5f;
         public float DestroyZ = -20f;
-        public float size = 0f;
+        public float offset = 0f;
 
         private void Update()
         {

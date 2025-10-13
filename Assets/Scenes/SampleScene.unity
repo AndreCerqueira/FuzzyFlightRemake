@@ -1792,13 +1792,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e6ac4d4404ce494897b28890b64075d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SectionGenerator
-  sectionPrefab:
-  - {fileID: 5231765504425488790, guid: f4f7adee37abc9f47a9d25661a3a1476, type: 3}
-  - {fileID: 7120062580574192813, guid: 9822d457bde83244f836277f93a9f228, type: 3}
-  - {fileID: 1100199496486775555, guid: 22291d2e84c94684ea6a1de4f19a1da3, type: 3}
-  - {fileID: 3817208544898901906, guid: 9a99e9ecc4d660f45b555934c683264a, type: 3}
-  finalPrefab: {fileID: 8123361642863563785, guid: 1fda47ebf9beafa4babf3ddf02194a23, type: 3}
-  sectionLimit: 10
+  Area1Size6Prefab:
+  - {fileID: 2299577700615253382, guid: 9079991e2f2a6f94fa3b8c7bfc48794f, type: 3}
+  - {fileID: 2299577700615253382, guid: 80e6ad52e7901e8408d8b3f38d32a6c8, type: 3}
+  - {fileID: 2299577700615253382, guid: 6a9c3e851daceec4991eaa812b3ea462, type: 3}
+  - {fileID: 2299577700615253382, guid: ece539f77a591634d9e06ccf1fa42dd7, type: 3}
+  Area1Size15Prefab:
+  - {fileID: 2299577700615253382, guid: de3aec579d7b48740bf18427c328bfd4, type: 3}
+  Area2Size10Prefab:
+  - {fileID: 2299577700615253382, guid: b29204ab31df92843bd487ba06d2c7ba, type: 3}
+  Area2Size12Prefab:
+  - {fileID: 2299577700615253382, guid: fcd9f3d7e7313234c8e4d239fca89f5d, type: 3}
+  Area2Size8Prefab:
+  - {fileID: 2299577700615253382, guid: 56891c453567e8b43a1d2c2b8c2a6da3, type: 3}
+  Area3Size4Prefab:
+  - {fileID: 2299577700615253382, guid: 8c5e76b620f1d7441a78bb4f11ffcd51, type: 3}
+  Area3Size3Prefab:
+  - {fileID: 2299577700615253382, guid: af1d38ff62531f340b81867f0f64d50b, type: 3}
+  Area3Size2Prefab:
+  - {fileID: 2299577700615253382, guid: e7e6db9a7f796fb46937dec0caf9b2b5, type: 3}
+  Area3Size6Prefab:
+  - {fileID: 2299577700615253382, guid: 4e7579d505f1dd34285f809cafaf8a66, type: 3}
+  finalPrefab: {fileID: 2299577700615253382, guid: 14d4315450dceb24c9cb2e38f50543bc, type: 3}
 --- !u!1 &192205358
 GameObject:
   m_ObjectHideFlags: 0
@@ -2043,7 +2058,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 11.3, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2170,7 +2185,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -4172,7 +4187,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 11.3, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &625745804
 MonoBehaviour:
   m_ObjectHideFlags: 0
