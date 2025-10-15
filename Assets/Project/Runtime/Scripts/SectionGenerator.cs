@@ -1,8 +1,11 @@
+using MoreMountains.Feedbacks;
 using Project.Runtime.Scripts;
 using UnityEngine;
 
 public class SectionGenerator : MonoBehaviour
 {
+    [SerializeField] MMF_Player enterFinalSceneFeedback;
+    
     [SerializeField] GameObject[] Area1Size6Prefab;
     [SerializeField] GameObject[] Area1Size15Prefab;
 
@@ -47,6 +50,7 @@ public class SectionGenerator : MonoBehaviour
         else
         {
             print("Section limit reached");
+            enterFinalSceneFeedback?.PlayFeedbacks();
         }
     }
 
