@@ -1,9 +1,12 @@
 using MoreMountains.Feedbacks;
 using Project.Runtime.Scripts;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class SectionGenerator : MonoBehaviour
 {
+    [SerializeField] GameObject initialPrefab;
+
     [SerializeField] MMF_Player enterFinalSceneFeedback;
     
     [SerializeField] GameObject[] Area1Size6Prefab;
@@ -24,6 +27,11 @@ public class SectionGenerator : MonoBehaviour
     [SerializeField] GameObject finalPrefab;
     private int sectionCount = 0;
     private int sectionLimit = 13;
+
+    void Start()
+    {
+        GenStart();
+    }
 
     public void GenSection()
     {
@@ -194,6 +202,11 @@ public class SectionGenerator : MonoBehaviour
             Instantiate(Area3Size6Prefab[index], finalPosition, Quaternion.identity);
             sectionCount++;
         }
+    }
+
+    public void GenStart()
+    {
+        Instantiate(initialPrefab, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
     }
 
     public void GenFinal()
