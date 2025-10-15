@@ -2,6 +2,7 @@ using System.Linq;
 using DG.Tweening;
 using MoreMountains.Feedbacks;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Project.Runtime.Scripts
 {
@@ -27,6 +28,7 @@ namespace Project.Runtime.Scripts
         [Header("References")]
         [SerializeField] private Transform _slider;
         [SerializeField] private MMF_Player _hitSfxFeedback;
+        [SerializeField] private VisualEffect _impactVFX; 
 
         private void Start()
         {
@@ -83,7 +85,14 @@ namespace Project.Runtime.Scripts
             
             _hitSfxFeedback?.PlayFeedbacks();
             
-            Destroy(transform.parent.gameObject);
+            if (_impactVFX != null)
+            {
+                VisualEffect vfxInstance = Instantiate(_impactVFX, transform.position, Quaternion.identity);
+                vfxInstance.Play();
+
+                // opcional: destruir o VFX após a duração da simulação
+                Destroy(vfxInstance.gameObject, 2f); // ajusta para a duração real do VFX
+            }
         }
     }
 }

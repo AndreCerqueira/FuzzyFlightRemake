@@ -320,6 +320,7 @@ MonoBehaviour:
   DestroyScaleTime: 0.2
   _slider: {fileID: 1137168272740196027}
   _hitSfxFeedback: {fileID: 8146339695162268653}
+  _impactVFX: {fileID: 1018737444125275280, guid: 2336b47ba0a65584cbbb3300609bd7b0, type: 3}
 --- !u!135 &873001108247588389
 SphereCollider:
   m_ObjectHideFlags: 0
