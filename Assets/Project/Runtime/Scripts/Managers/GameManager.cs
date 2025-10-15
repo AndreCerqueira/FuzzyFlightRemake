@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Project.Runtime.Scripts.General;
 using UnityEngine;
@@ -65,6 +66,11 @@ namespace Project.Runtime.Scripts
         {
             if (PlayerQuantityAlive <= 0) return;
             PlayerQuantityAlive--;
+            
+            if (PlayerQuantityAlive <= 0)
+            {
+                StartCoroutine(GoToFinalSceneAfterDelay(1f));
+            }
         }
 
         public string GetCurrentPlayerPosition()
@@ -76,6 +82,14 @@ namespace Project.Runtime.Scripts
                 1 => "2nd",
                 _ => "1st" 
             };
+        }
+        
+        [SerializeField] private SectionGenerator _sectionGenerator;
+        private IEnumerator GoToFinalSceneAfterDelay(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+    
+            _sectionGenerator.GoToFinalScene();
         }
     }
 }

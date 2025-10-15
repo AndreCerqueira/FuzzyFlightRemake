@@ -231,4 +231,9 @@ public class SectionGenerator : MonoBehaviour
             }
         }
     }
+    
+    public void GoToFinalScene()
+    {
+        enterFinalSceneFeedback?.PlayFeedbacks();
+    }
 }

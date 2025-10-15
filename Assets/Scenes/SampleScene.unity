@@ -4194,6 +4194,7 @@ MonoBehaviour:
   _minX: -5
   _maxX: 5
   _spawnY: -2
+  _sectionGenerator: {fileID: 150348391}
 --- !u!4 &672110656
 Transform:
   m_ObjectHideFlags: 0

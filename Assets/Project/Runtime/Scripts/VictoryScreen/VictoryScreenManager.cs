@@ -1,6 +1,7 @@
 using System;
 using MoreMountains.Feedbacks;
 using Project.Runtime.Scripts.VictoryScreen;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,8 @@ public class VictoryScreenManager : MonoBehaviour
     [Header("Players & Tags")]
     [SerializeField] private GameObject[] playerObjects;
     [SerializeField] private GameObject[] tagObjects;
+    [SerializeField] private TextMeshProUGUI statusLabel;
+    [SerializeField] private GameObject deadContainer;
     
     [Header("Settings")]
     [SerializeField] private MMF_Player _changeSceneFeedback;
@@ -18,9 +21,14 @@ public class VictoryScreenManager : MonoBehaviour
         var results = GameResultManager.Instance.Results;
         string summary = "";
 
+        bool anySurvived = false;
+
         for (int i = 0; i < results.Count; i++)
         {
             var result = results[i];
+
+            if (result.survived) anySurvived = true;
+
             summary += $"{result.playerName}: " +
                        (result.survived ? $"Sobreviveu" : "Morreu") +
                        "\n";
@@ -36,8 +44,27 @@ public class VictoryScreenManager : MonoBehaviour
             }
         }
 
+        // Define o texto da label
+        if (statusLabel != null)
+            statusLabel.text = anySurvived ? "Win!" : "Lose";
+
+        // Se perderam todos, desativa todos os players e tags
+        if (!anySurvived)
+        {
+            foreach (var player in playerObjects)
+                if (player != null) player.SetActive(false);
+
+            foreach (var tag in tagObjects)
+                if (tag != null) tag.SetActive(false);
+        }
+
+        if (!anySurvived)
+        {
+            deadContainer.SetActive(true);
+        }
+
         Debug.Log("Resultados do Jogo:\n" + summary);
-        
+    
         CenterWinners();
     }
 

@@ -81,7 +81,10 @@ namespace Project.Runtime.Scripts
             var deathSeq = DOTween.Sequence();
             deathSeq.Append(transform.DOLocalRotate(new Vector3(0f, 0f, 360f), _deathSpinDuration,
                     RotateMode.FastBeyond360))
-                .Join(transform.DOMove(transform.position + moveBack, _deathSpinDuration));
+                .Join(transform.DOMove(transform.position + moveBack, _deathSpinDuration)).SetDelay(0.2f).OnComplete(() =>
+                {
+                    this.gameObject.SetActive(false);
+                });
         }
     }
 }
