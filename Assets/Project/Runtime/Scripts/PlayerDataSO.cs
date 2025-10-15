@@ -6,7 +6,7 @@ namespace Project.Runtime.Scripts
     public class PlayerDataSO : ScriptableObject
     {
         [Header("Visuals")]
-        public Material Material;
+        public GameObject ShipModelPrefab;
         public Sprite Icon;
         
         [Header("Keybindings")]

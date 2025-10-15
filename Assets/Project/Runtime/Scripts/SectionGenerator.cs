@@ -1,5 +1,6 @@
 using MoreMountains.Feedbacks;
 using Project.Runtime.Scripts;
+using Project.Runtime.Scripts.VictoryScreen;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -209,8 +210,25 @@ public class SectionGenerator : MonoBehaviour
         Instantiate(initialPrefab, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
     }
 
+    [SerializeField] private Transform playersContainer;
     public void GenFinal()
     {
         Instantiate(finalPrefab, transform.position + new Vector3(0, 0, (5.481222f * 5)), Quaternion.identity);
+        
+        // Itera apenas pelos jogadores dentro do contentor
+        foreach (Transform child in playersContainer)
+        {
+            var playerHUD = child.GetComponentInChildren<PlayerHUD>();
+            if (playerHUD == null) continue;
+
+            if (playerHUD.Lives > 0)
+            {
+                GameResultManager.Instance.AddResult(child.name, true);
+            }
+            else
+            {
+                GameResultManager.Instance.AddResult(child.name, false);
+            }
+        }
     }
 }

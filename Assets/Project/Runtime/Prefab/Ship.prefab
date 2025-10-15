@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a8a935419e3de418d169ea8aac6a76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Project.Runtime.Scripts.Ship
+  _modelParent: {fileID: 7606958442341482183}
   _renderer: {fileID: 4007679523578894355}
   _deathSpinDuration: 1
   _deathMoveBackDistance: 10
@@ -137,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6853894531225502433
 Transform:
   m_ObjectHideFlags: 0

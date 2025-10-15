@@ -5,12 +5,14 @@ namespace Project.Runtime.Scripts
 {
     public class Ship : MonoBehaviour
     {
+        [SerializeField] private Transform _modelParent;
         [SerializeField] private Renderer _renderer;
         [SerializeField] private float _deathSpinDuration = 1f;
         [SerializeField] private float _deathMoveBackDistance = 4f;
         
         private ShipMovement _shipMovement;
         private PlayerHUD _playerHUD;
+        private GameObject _modelInstance;
 
         public void Setup(PlayerHUD playerHUD, PlayerDataSO data)
         {
@@ -19,8 +21,9 @@ namespace Project.Runtime.Scripts
             
             _shipMovement.Setup(data);
             
-            if (_renderer != null && data.Material != null)
-                _renderer.material = new Material(data.Material);
+            _modelInstance = Instantiate(data.ShipModelPrefab, _modelParent != null ? _modelParent : transform);
+            _modelInstance.transform.localPosition = Vector3.zero;
+            _modelInstance.transform.localRotation = Quaternion.identity;
             
             _playerHUD.OnPlayerDead += HandleDeath;
             _playerHUD.OnPlayerDead += () => GameManager.Instance.NotifyPlayerDeath();

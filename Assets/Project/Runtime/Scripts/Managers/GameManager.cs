@@ -49,10 +49,13 @@ namespace Project.Runtime.Scripts
             }
         }
 
+        private int index = 0;
         private void SpawnShip(float x, float y, PlayerDataSO data)
         {
             var hud = Instantiate(_playerHudPrefab, _hudContainer);
             hud.Setup(data);
+            hud.name = $"Player {index + 1}";
+            index++;
 
             var ship = Instantiate(_playerShipPrefab, new Vector3(x, y, 0f), Quaternion.identity, _shipContainer);
             ship.Setup(hud, data);

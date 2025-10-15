@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d18e3d9e31b79d4f80f8fe61b4ef628, type: 3}
   m_Name: Player-2
   m_EditorClassIdentifier: Assembly-CSharp::Project.Runtime.Scripts.PlayerDataSO
-  Material: {fileID: 2100000, guid: f4ba95c461ba89d4885893e730317e92, type: 2}
-  Icon: {fileID: -1331788603, guid: 6582f34ddd5f686408c019550cd94c9d, type: 3}
+  ShipModelPrefab: {fileID: 4659005476805289202, guid: 1ddc2ae5fc3859a4299577bffe8c47d7, type: 3}
+  Icon: {fileID: 21300000, guid: 03e7a7b7d72fcb547ac2a54ca7b9ef3e, type: 3}
   MoveUp: 116
   MoveLeft: 102
   MoveDown: 103
