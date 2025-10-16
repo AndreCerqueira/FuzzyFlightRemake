@@ -80,6 +80,7 @@ public class VictoryScreenManager : MonoBehaviour
     private void ContinueToNext()
     {
         // ⚙️ Aqui fazes o que quiseres — neste caso, voltar à cena inicial
+        GameResultManager.Instance.ClearResults();
         _changeSceneFeedback?.PlayFeedbacks();
     }
     
