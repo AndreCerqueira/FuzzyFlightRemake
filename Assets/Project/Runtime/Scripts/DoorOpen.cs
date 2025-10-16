@@ -1,50 +1,56 @@
-using System.Collections;
-using DG.Tweening;
-using NUnit.Framework.Internal;
-using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
 public class DoorOpen : MonoBehaviour
 {
+    [Header("Portas")]
     [SerializeField] private GameObject leftDoor;
     [SerializeField] private GameObject rightDoor;
-    private SectionGenerator section;
-    
-    [Header("Door Effects")]
-    [SerializeField] private Transform leftDoorEffect; 
-    [SerializeField] private Transform rightDoorEffect; 
-    private float effectMoveDistance = 5f; 
-    private float effectDuration = 0.2f; 
 
-    float speed = 0f;
+    [Header("Efeitos das Portas")]
+    [SerializeField] private Transform leftDoorEffect;
+    [SerializeField] private Transform rightDoorEffect;
+    private float effectMoveDistance = 20f; // dobrado de 5 → 10
+    private float effectDuration = 0.2f;
+
+    [Header("Configuração de Abertura")]
+    [SerializeField] private float openSpeed = 20f;
+    [SerializeField] private float openTime = 0.6f; // dobrado de 0.3 → 0.6
+    [SerializeField] private bool disableAfterOpen = true;
+
+    private SectionGenerator section;
     private float counter = 0f;
+    private bool isOpening = false;
     private bool effectTriggered = false;
 
     void Awake()
     {
+        // Apenas procura uma vez — otimização importante
         section = FindFirstObjectByType<SectionGenerator>();
     }
 
     void Update()
     {
-        section = FindFirstObjectByType<SectionGenerator>();
-
-        if (speed > 0f)
+        if (isOpening)
         {
             counter += Time.deltaTime;
 
-            // Movimenta as portas
-            leftDoor.transform.Translate(Vector3.left * Time.deltaTime * speed);
-            rightDoor.transform.Translate(Vector3.right * Time.deltaTime * speed);
+            // Movimento suave das portas
+            leftDoor.transform.Translate(Vector3.left * Time.deltaTime * openSpeed);
+            rightDoor.transform.Translate(Vector3.right * Time.deltaTime * openSpeed);
 
-            if (counter > 0.3f)
+            // Parar depois de um tempo definido
+            if (counter >= openTime)
             {
-                speed = 0f;
+                isOpening = false;
 
                 if (!effectTriggered)
                 {
                     effectTriggered = true;
                     TriggerDoorEffect();
+
+                    if (disableAfterOpen)
+                        GetComponent<BoxCollider>().enabled = false;
                 }
             }
         }
@@ -52,31 +58,39 @@ public class DoorOpen : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Ship"))
+        if (!isOpening && other.CompareTag("Ship"))
         {
-            speed = 20f;
+            // Inicia o movimento de abertura
+            isOpening = true;
+            counter = 0f;
+            effectTriggered = false;
 
-            section.GenSection();
-
-            GetComponent<BoxCollider>().enabled = false;
+            // Gera a próxima secção
+            if (section != null)
+                section.GenSection();
+            else
+                Debug.LogWarning("SectionGenerator não encontrado!");
         }
     }
-    
+
     private void TriggerDoorEffect()
     {
-        // Move o efeito na mesma direção da porta usando DOTween
         if (leftDoorEffect != null)
         {
-            leftDoorEffect.DOMove(leftDoorEffect.position + Vector3.left * effectMoveDistance, effectDuration)
-                .SetEase(Ease.OutQuad)
-                .OnComplete(() => leftDoorEffect.gameObject.SetActive(false)); // opcional: desativar efeito depois
+            leftDoorEffect.DOMove(
+                leftDoorEffect.position + Vector3.left * effectMoveDistance,
+                effectDuration
+            ).SetEase(Ease.OutQuad)
+             .OnComplete(() => leftDoorEffect.gameObject.SetActive(false));
         }
 
         if (rightDoorEffect != null)
         {
-            rightDoorEffect.DOMove(rightDoorEffect.position + Vector3.right * effectMoveDistance, effectDuration)
-                .SetEase(Ease.OutQuad)
-                .OnComplete(() => rightDoorEffect.gameObject.SetActive(false));
+            rightDoorEffect.DOMove(
+                rightDoorEffect.position + Vector3.right * effectMoveDistance,
+                effectDuration
+            ).SetEase(Ease.OutQuad)
+             .OnComplete(() => rightDoorEffect.gameObject.SetActive(false));
         }
     }
 }
