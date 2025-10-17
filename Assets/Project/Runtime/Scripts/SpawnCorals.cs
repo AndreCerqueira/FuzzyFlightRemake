@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Project.Runtime.Scripts
 {
@@ -12,9 +13,10 @@ namespace Project.Runtime.Scripts
 
         [Header("Altura fixa (Y)")]
         public float fixedY = 0f;
+        public float fixedAreiaY = 0f;
 
-        [Header("Prefab do coral a spawnar")]
-        public GameObject coralPrefab;
+        [Header("Prefabs de corais possíveis")]
+        public List<GameObject> coralPrefabs = new List<GameObject>();
 
         [Header("Número de corais a spawnar")]
         public int coralCount = 20;
@@ -36,7 +38,7 @@ namespace Project.Runtime.Scripts
         // -------------------------------
         void SpawnCoralsInArea()
         {
-            if (coralPrefab == null)
+            if (coralPrefabs == null || coralPrefabs.Count == 0)
             {
                 Debug.LogWarning("Nenhum prefab de coral atribuído!");
                 return;
@@ -44,6 +46,9 @@ namespace Project.Runtime.Scripts
 
             for (int i = 0; i < coralCount; i++)
             {
+                // Escolhe um coral aleatório da lista
+                GameObject coralPrefab = coralPrefabs[Random.Range(0, coralPrefabs.Count)];
+
                 float randomX = Random.Range(minX, maxX);
                 float randomZ = Random.Range(minZ, maxZ);
                 Vector3 spawnPos = new Vector3(randomX, fixedY, randomZ);
@@ -73,9 +78,9 @@ namespace Project.Runtime.Scripts
             {
                 for (int z = 0; z < numPlanesZ; z++)
                 {
-                    float posX = minX + x * planeSize + planeSize / 2f -2f;
+                    float posX = minX + x * planeSize + planeSize / 2f - 2f;
                     float posZ = minZ + z * planeSize + planeSize / 2f;
-                    Vector3 spawnPos = new Vector3(posX, fixedY-0.5f, posZ);
+                    Vector3 spawnPos = new Vector3(posX, fixedAreiaY, posZ);
 
                     Instantiate(sandPrefab, spawnPos, Quaternion.identity, parentTransform);
                 }
