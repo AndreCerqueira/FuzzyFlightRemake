@@ -4862,7 +4862,7 @@ MonoBehaviour:
         Owner: {fileID: 1067982066}
         DebugActive: 0
         LoadingSceneName: MMAdditiveLoadingScreenFastFade
-        DestinationSceneName: SampleScene
+        DestinationSceneName: MainMenu
         LoadingMode: 2
         Priority: 4
         SecureLoad: 1
